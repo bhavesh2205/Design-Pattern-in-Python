@@ -55,6 +55,11 @@ class ProcessData(ExploratoryDataAnalysis):
     def load_data(self, path: str) -> pd.DataFrame:
         """
         The concrete method to load the data.
+
+        args:
+            path: str - path to the data
+        returns:
+            pandas.DataFrame - dataframe loaded from the path
         """
         df = pd.read_csv(path)
         return df
@@ -62,6 +67,11 @@ class ProcessData(ExploratoryDataAnalysis):
     def handle_missing(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         The concrete method to handle the missing values.
+
+        args:
+            df: pandas.DataFrame - dataframe to handle missing values
+        returns:
+            pandas.DataFrame - dataframe with missing values handled
         """
         df["annual_mileage"] = df["annual_mileage"].fillna(df["annual_mileage"].mean())
 
@@ -70,13 +80,20 @@ class ProcessData(ExploratoryDataAnalysis):
     def encode_categoricals(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         The concrete method to encode the categorical variables.
+
+        args:
+            df: pandas.DataFrame - dataframe to encode categorical variables
+        returns:
+            pandas.DataFrame - dataframe with categorical variables encoded
         """
         df["vehicle_type"] = df["vehicle_type"].map({"sedan": 0, "sports car": 1})
         df["vehicle_year"] = df["vehicle_year"].map({"before 2015": 0, "after 2015": 1})
         return df
 
 
-# Use it
-pipeline = ProcessData()
-df_cleaned = pipeline.run_pipeline(path="data/car_insurance.csv")
-print(df_cleaned[["vehicle_type", "vehicle_year", "annual_mileage"]].head())
+#   usage
+if __name__ == "__main__":
+    pipeline = ProcessData()
+    df_cleaned = pipeline.run_pipeline(path="data/car_insurance.csv")
+    print(df_cleaned[["vehicle_type", "vehicle_year", "annual_mileage"]].head())
+    

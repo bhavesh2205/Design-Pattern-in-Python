@@ -51,9 +51,9 @@ class ProcessData(DataPreprocessing):
         The concrete method to load the data.
 
         args:
-            path: str
+            path: str - path to the data
         returns:
-            pandas.DataFrame
+            pandas.DataFrame - dataframe loaded from the path
         """
         df = pd.read_csv(path)
         return df
@@ -63,9 +63,9 @@ class ProcessData(DataPreprocessing):
         The concrete method to handle the missing values.
 
         args:
-            df: pandas.DataFrame
+            df: pandas.DataFrame - dataframe to handle missing values
         returns:
-            pandas.DataFrame
+            pandas.DataFrame - dataframe with missing values handled
         """
         df = df.dropna()
         return df
@@ -75,8 +75,8 @@ class ProcessData(DataPreprocessing):
         The concrete method to encode the categoricals.
 
         args:
-            df: pandas.DataFrame
-            column: str
+            df: pandas.DataFrame - dataframe to encode categoricals
+            column: str - column to encode categoricals
         returns:
             pandas.DataFrame
         """
@@ -88,8 +88,8 @@ class ProcessData(DataPreprocessing):
         The private method to plot the basic distributions.
 
         args:
-            df: pandas.DataFrame
-            column: str
+            df: pandas.DataFrame - dataframe to plot the basic distributions
+            column: str - column to plot the basic distributions
         returns:
             None
         """
@@ -99,6 +99,7 @@ class ProcessData(DataPreprocessing):
 
 
 # usage
-process_data = ProcessData()
-df = process_data.run_pipeline(path="data/car_insurance.csv")
-print(df.head())
+if __name__ == "__main__":
+    process_data = ProcessData()
+    df = process_data.run_pipeline(path="data/car_insurance.csv")
+    print(df.head())

@@ -27,8 +27,16 @@ class MissingValueStrategy(ABC):
     The Context uses this interface to call the algorithm defined by Concrete Strategies.
     """
     @abstractmethod
-    def handle_missing(self, df, column):
+    def handle_missing(self, df: pd.DataFrame, column: str) -> pd.DataFrame:
+        """
+        The abstract method to handle the missing values.
         
+        args:
+            df: pandas.DataFrame - dataframe to handle missing values
+            column: str - column to handle missing values
+        returns:
+            pandas.DataFrame - dataframe with missing values handled
+        """
         pass
 
 # Concrete strategies
@@ -77,10 +85,11 @@ class MedianStrategy(MissingValueStrategy):
         return df
 
 # usage
-df = pd.read_csv('data/car_insurance.csv')
+if __name__ == "__main__":
+    df = pd.read_csv('data/car_insurance.csv')
 
-context = DataHandlerContext(MeanStrategy())
-df_cleaned = context.handle(df.copy(), 'credit_score')
+    context = DataHandlerContext(MedianStrategy())
+    df_cleaned = context.handle(df.copy(), 'credit_score')
 
-print(df_cleaned['credit_score'])
+    print(df_cleaned['credit_score'])
 
