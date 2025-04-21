@@ -11,12 +11,16 @@ class ExploratoryDataAnalysis(ABC):
     def run_pipeline(self, path: str):
         """
         The template method defines the skeleton of an algorithm.
+        params:
+            path: str - path to the data
+        returns:
+            pandas.DataFrame - dataframe processed from the path    
         """
         df = self.load_data(path)
         df = self.handle_missing(df)
         df = self.encode_categoricals(df)
         self.plot(df)
-        return df  # Return the processed DataFrame
+        return df
 
     @abstractmethod
     def load_data(self):
@@ -46,7 +50,7 @@ class ExploratoryDataAnalysis(ABC):
         print("Plotting basic distributions")
 
 
-# A concrete implementation
+# concrete implementation
 class ProcessData(ExploratoryDataAnalysis):
     """
     The Concrete class implements the abstract operations.
